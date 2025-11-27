@@ -23,11 +23,17 @@ export default function HomeScreen() {
    */
   const [memos, setMemos] = useState<types.Memo[]>([]);
 
+  /** 초기화 함수. 화면 진입했을때, 필요한 선행 작업들을
+   * 수행하는 함수에요
+   */
   async function init() {
     db.initDB();
     console.log();
   }
 
+  /** 얘는 react native expo 개발자가 만든 함수에요.
+   * 화면에 진입시, 얘는 무조건 한번은 실행 되요
+   */
   useFocusEffect(
     useCallback(() => {
       init();
