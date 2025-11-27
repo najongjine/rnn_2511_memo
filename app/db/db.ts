@@ -53,32 +53,6 @@ export const initDB = async (): Promise<boolean> => {
 };
 
 /**
- * 2. 메모 추가 (Create)
- */
-export const addMemo = async (
-  title: string,
-  content: string
-): Promise<number> => {
-  const db = await getDb();
-  const date = new Date().toISOString();
-
-  try {
-    // db.runAsync는 INSERT, UPDATE, DELETE 구문에 적합하며, 삽입된 ID 정보를 반환합니다.
-    const result = await db.runAsync(
-      `INSERT INTO memos (title, content, date) VALUES (?, ?, ?);`,
-      title,
-      content,
-      date
-    );
-    // lastInsertRowId는 삽입된 행의 ID입니다.
-    return result.lastInsertRowId;
-  } catch (error) {
-    console.error("Error adding memo:", error);
-    throw error;
-  }
-};
-
-/**
  * 3. 메모 목록 가져오기 (Read All)
  */
 export const getMemos = async (): Promise<Memo[]> => {
