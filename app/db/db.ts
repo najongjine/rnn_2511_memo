@@ -36,7 +36,7 @@ export const initDB = async (): Promise<boolean> => {
             id INTEGER PRIMARY KEY NOT NULL,
             title TEXT NOT NULL,
             content TEXT,
-            date TEXT NOT NULL
+            date TEXT
         );
     `;
 
