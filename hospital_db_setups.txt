@@ -1,0 +1,57 @@
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+CREATE TABLE hospitals (
+    id VARCHAR PRIMARY KEY,              -- 카카오 API의 "id" (예: 26200641)
+    place_name VARCHAR NOT NULL,           -- "수피부과의원"
+    phone VARCHAR,                         -- "062-383-7900"
+    road_address_name VARCHAR,             -- "광주 광산구 사암로 398"
+    address_name VARCHAR,                  -- "광주 광산구 월곡동 679-1"
+    category_name VARCHAR,                 -- "의료,건강 > 병원 > 피부과"
+    place_url VARCHAR,                     -- 상세 URL
+    x DOUBLE PRECISION,                 -- 경도 (Longitude) 126.xxx
+    y DOUBLE PRECISION,                 -- 위도 (Latitude) 35.xxx
+    
+    -- [중요] 거리 계산용 공간 데이터 컬럼 (SRID 4326: 위경도 좌표계)
+    location GEOMETRY(POINT, 4326)
+);
+
+-- [중요] 거리 검색 속도를 높이기 위한 공간 인덱스 생성
+CREATE INDEX hospitals_location_idx ON hospitals USING GIST (location);
+
+
+
+# 데이터 저장 방법 (INSERT)
+INSERT INTO hospitals (
+    id, place_name, phone, road_address_name, address_name, category_name, place_url, x, y, location
+) VALUES (
+    26200641, 
+    '수피부과의원', 
+    '062-383-7900', 
+    '광주 광산구 사암로 398', 
+    '광주 광산구 월곡동 679-1', 
+    '의료,건강 > 병원 > 피부과', 
+    'http://place.map.kakao.com/26200641', 
+    126.808497549893, 
+    35.1797649424865,
+    
+    -- 좌표를 Geometry 형태로 변환하여 저장
+    ST_SetSRID(ST_MakePoint(126.808497549893, 35.1797649424865), 4326)
+);
+
+
+# 내 위치에서 가까운 거리 검색 쿼리 (핵심)
+SELECT 
+    place_name, 
+    phone, 
+    road_address_name,
+    -- 내 위치와 병원 사이의 거리 계산 (미터 단위, 반올림)
+    ROUND(ST_DistanceSphere(
+        location, 
+        ST_SetSRID(ST_MakePoint(126.803, 35.175), 4326) -- 내 위치 (경도, 위도)
+    )) AS distance_meters
+FROM 
+    hospitals
+ORDER BY 
+    -- 가까운 순서대로 정렬 (<-> 연산자는 인덱스를 타서 매우 빠름)
+    location <-> ST_SetSRID(ST_MakePoint(126.803, 35.175), 4326)
+LIMIT 10; -- 가장 가까운 10개만
