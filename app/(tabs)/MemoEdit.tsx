@@ -1,4 +1,4 @@
-import { useFocusEffect, useLocalSearchParams } from "expo-router";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import {
   Button,
@@ -16,6 +16,8 @@ export default function MemoEdit() {
    */
   const queryString = useLocalSearchParams();
   const memoId = Number(queryString?.memoId ?? 0);
+  // 화면 이동 가능하게 해주는놈
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
