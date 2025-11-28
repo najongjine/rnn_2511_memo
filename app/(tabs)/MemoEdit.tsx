@@ -11,6 +11,9 @@ import {
 import * as db from "../db/db";
 
 export default function MemoEdit() {
+  /* 화면 전환할때, 데이터를 같이 보낼수 있음
+  그때 이 화면에 전달된 데이터 뽑아오는 코드
+   */
   const queryString = useLocalSearchParams();
   const memoId = Number(queryString?.memoId ?? 0);
   const [title, setTitle] = useState("");
@@ -19,14 +22,13 @@ export default function MemoEdit() {
   async function init() {
     let data = await db.getMemoById(memoId);
   }
+  function onSave() {}
 
   useFocusEffect(
     useCallback(() => {
       init();
     }, [])
   );
-
-  function onSave() {}
 
   return (
     <ScrollView>
