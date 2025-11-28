@@ -1,4 +1,11 @@
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function MemoEdit() {
   return (
@@ -11,6 +18,9 @@ export default function MemoEdit() {
       </View>
       <View>
         <TextInput placeholder="내용입력" multiline={true} />
+      </View>
+      <View>
+        <Button title="저장" />
       </View>
     </ScrollView>
   );
