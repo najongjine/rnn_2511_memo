@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useFocusEffect, useLocalSearchParams } from "expo-router";
+import { useCallback, useState } from "react";
 import {
   Button,
   ScrollView,
@@ -7,10 +8,23 @@ import {
   TextInput,
   View,
 } from "react-native";
+import * as db from "../db/db";
 
 export default function MemoEdit() {
+  const queryString = useLocalSearchParams();
+  const memoId = Number(queryString?.memoId ?? 0);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  async function init() {
+    let data = await db.getMemoById(memoId);
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      init();
+    }, [])
+  );
 
   function onSave() {}
 
