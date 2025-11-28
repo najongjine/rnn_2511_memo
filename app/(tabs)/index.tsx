@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 /**
  * import : 가져오다
  * : 다 가져오다
@@ -27,8 +27,13 @@ export default function HomeScreen() {
    * 수행하는 함수에요
    */
   async function init() {
-    db.initDB();
-    console.log();
+    /* 함수 설명란에 promise<> 이게 있으면 비동기란 뜻이에요
+    비동기 함수는 아무리 위쪽에 써도, 맨 나중에 실행되는 특성이 있어요.
+    그런데, 프로그램 만들때는 비동기 함수를 실행하고난 다음 해야되는 작업들이 많아요
+    await 키워드를 붙이면 개발자가 의도한대로 순서대로 실행되요
+     */
+    await db.initDB();
+    console.log(`2번째 코드에요`);
   }
 
   /** 얘는 react native expo 개발자가 만든 함수에요.
@@ -42,7 +47,16 @@ export default function HomeScreen() {
 
   return (
     <View>
-      <Text>메모 리스트</Text>
+      <View>
+        <Text>메모 리스트</Text>
+      </View>
+      <View>
+        <FlatList
+          data={memos}
+          renderItem={({ item }) => <View>{item?.title}</View>}
+          ListEmptyComponent={<Text>메모가 없습니다.</Text>}
+        />
+      </View>
     </View>
   );
 }
