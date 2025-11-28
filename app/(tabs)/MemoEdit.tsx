@@ -32,13 +32,13 @@ export default function MemoEdit() {
     }
   }
   async function onSave() {
-    await db.updateMemo();
+    await db.updateMemo(memoId, title, content);
+    router.replace("/");
   }
-
   useFocusEffect(
     useCallback(() => {
       init();
-    }, [])
+    }, [memoId])
   );
 
   return (
@@ -53,7 +53,7 @@ export default function MemoEdit() {
         <TextInput placeholder="내용입력" multiline={true} />
       </View>
       <View>
-        <Button title="저장" />
+        <Button title="저장" onPress={onSave} />
       </View>
     </ScrollView>
   );
