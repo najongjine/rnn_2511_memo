@@ -31,7 +31,9 @@ export default function MemoEdit() {
       setContent("");
     }
   }
-  function onSave() {}
+  async function onSave() {
+    await db.updateMemo();
+  }
 
   useFocusEffect(
     useCallback(() => {
