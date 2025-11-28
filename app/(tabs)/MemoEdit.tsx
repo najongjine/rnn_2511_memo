@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Button,
   ScrollView,
@@ -8,6 +9,11 @@ import {
 } from "react-native";
 
 export default function MemoEdit() {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  function onSave() {}
+
   return (
     <ScrollView>
       <View>
