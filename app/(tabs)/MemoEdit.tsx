@@ -47,10 +47,19 @@ export default function MemoEdit() {
         <Text>메모 작성</Text>
       </View>
       <View>
-        <TextInput placeholder="제목 입력" />
+        <TextInput
+          placeholder="제목 입력"
+          value={title}
+          onChangeText={setTitle}
+        />
       </View>
       <View>
-        <TextInput placeholder="내용입력" multiline={true} />
+        <TextInput
+          placeholder="내용입력"
+          value={content}
+          onChangeText={setContent}
+          multiline={true}
+        />
       </View>
       <View>
         <Button title="저장" onPress={onSave} />
