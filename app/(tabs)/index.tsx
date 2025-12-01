@@ -32,6 +32,7 @@ export default function HomeScreen() {
     그런데, 프로그램 만들때는 비동기 함수를 실행하고난 다음 해야되는 작업들이 많아요
     await 키워드를 붙이면 개발자가 의도한대로 순서대로 실행되요
      */
+
     await db.initDB();
     let memos = await db.getMemos();
     setMemos(memos);
@@ -52,13 +53,17 @@ export default function HomeScreen() {
       <View>
         <Text>메모 리스트</Text>
       </View>
-      <View>
-        <Text>{JSON.stringify(memos)}</Text>
-      </View>
+
       <View>
         <FlatList
           data={memos}
-          renderItem={({ item }) => <View>{item?.title}</View>}
+          renderItem={({ item }) => (
+            <View>
+              <Text>
+                {item?.title}, ${item?.date ?? ""}
+              </Text>
+            </View>
+          )}
           ListEmptyComponent={<Text>메모가 없습니다.</Text>}
         />
       </View>
