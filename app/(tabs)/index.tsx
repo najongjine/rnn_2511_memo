@@ -33,6 +33,8 @@ export default function HomeScreen() {
     await 키워드를 붙이면 개발자가 의도한대로 순서대로 실행되요
      */
     await db.initDB();
+    let memos = await db.getMemos();
+    setMemos(memos);
     console.log(`2번째 코드에요`);
   }
 
@@ -49,6 +51,9 @@ export default function HomeScreen() {
     <View>
       <View>
         <Text>메모 리스트</Text>
+      </View>
+      <View>
+        <Text>{JSON.stringify(memos)}</Text>
       </View>
       <View>
         <FlatList
