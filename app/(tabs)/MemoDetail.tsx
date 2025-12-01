@@ -7,7 +7,8 @@ import { StyleSheet, Text, View } from "react-native";
  * from : 어디에서?
  * "경로"
  */
-import { useFocusEffect, useLocalSearchParams } from "expo-router";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import CustomButton from "../component/CustomButton";
 import * as db from "../db/db";
 import * as types from "../types/types";
 
@@ -48,6 +49,19 @@ export default function MemoDetail() {
       </View>
       <View>
         <Text>{memo?.content}</Text>
+      </View>
+      <View>
+        <CustomButton
+          title="목록"
+          size="small"
+          color="#3060ff6d"
+          position="left"
+          onPress={() => {
+            router.push({
+              pathname: "/",
+            });
+          }}
+        />
       </View>
     </View>
   );
