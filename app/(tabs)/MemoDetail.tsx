@@ -53,7 +53,7 @@ export default function MemoDetail() {
       <View>
         <CustomButton
           title="목록"
-          size="small"
+          size="medium"
           color="#3060ff6d"
           position="left"
           onPress={() => {
@@ -61,6 +61,20 @@ export default function MemoDetail() {
               pathname: "/",
             });
           }}
+        />
+        <CustomButton
+          title="수정"
+          size="medium"
+          color="#72d6a96d"
+          position="right"
+          onPress={() => {}}
+        />
+        <CustomButton
+          title="삭제"
+          size="small"
+          color="#d653576d"
+          position="right"
+          onPress={() => {}}
         />
       </View>
     </View>
