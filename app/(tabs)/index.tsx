@@ -1,5 +1,11 @@
 import { useCallback, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 /**
  * import : 가져오다
  * : 다 가져오다
@@ -7,7 +13,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
  * from : 어디에서?
  * "경로"
  */
-import { useFocusEffect } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import * as db from "../db/db";
 import * as types from "../types/types";
 
@@ -58,11 +64,20 @@ export default function HomeScreen() {
         <FlatList
           data={memos}
           renderItem={({ item }) => (
-            <View>
-              <Text>
-                {item?.title}, ${item?.date ?? ""}
-              </Text>
-            </View>
+            <TouchableOpacity
+              onPress={() => {
+                router.push({
+                  pathname: "/MemoDetail",
+                  params: { memoId: item?.id ?? 0 },
+                });
+              }}
+            >
+              <View>
+                <Text>
+                  {item?.title}, ${item?.date ?? ""}
+                </Text>
+              </View>
+            </TouchableOpacity>
           )}
           ListEmptyComponent={<Text>메모가 없습니다.</Text>}
         />
