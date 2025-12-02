@@ -38,6 +38,16 @@ export default function TabLayout() {
             href: null,
           }}
         />
+        <Tabs.Screen
+          name="MemoDetail"
+          options={{
+            title: "Explore",
+            tabBarIcon: ({ color }) => (
+              <IconSymbol size={28} name="paperplane.fill" color={color} />
+            ),
+            href: null,
+          }}
+        />
       </Tabs>
     </SafeAreaView>
   );
