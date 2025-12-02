@@ -84,7 +84,19 @@ export default function HomeScreen() {
         />
       </View>
       <View>
-        <CustomButton title="+새로작성" color="#4e7edd6d" />
+        <CustomButton
+          title="+새로작성"
+          color="#4e7edd6d"
+          position="right"
+          onPress={() => {
+            router.push({
+              pathname: "/MemoEdit",
+              params: {
+                memoId: 0,
+              },
+            });
+          }}
+        />
       </View>
     </View>
   );
