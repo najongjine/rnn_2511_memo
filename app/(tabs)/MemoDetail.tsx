@@ -81,7 +81,11 @@ export default function MemoDetail() {
           size="small"
           color="#d653576d"
           position="right"
-          onPress={() => {}}
+          onPress={() => {
+            /* router.replace 
+            db.deleteMemoById
+            */
+          }}
         />
       </View>
     </View>
