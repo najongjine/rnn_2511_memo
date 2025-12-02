@@ -14,6 +14,7 @@ import {
  * "경로"
  */
 import { router, useFocusEffect } from "expo-router";
+import CustomButton from "../component/CustomButton";
 import * as db from "../db/db";
 import * as types from "../types/types";
 
@@ -81,6 +82,9 @@ export default function HomeScreen() {
           )}
           ListEmptyComponent={<Text>메모가 없습니다.</Text>}
         />
+      </View>
+      <View>
+        <CustomButton title="+새로작성" color="#4e7edd6d" />
       </View>
     </View>
   );
