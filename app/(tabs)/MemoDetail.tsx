@@ -67,7 +67,10 @@ export default function MemoDetail() {
           size="medium"
           color="#72d6a96d"
           position="right"
-          onPress={() => {}}
+          onPress={() => {
+            /* router.push 이용해서 MemoEdit 화면으로 이동
+            parmas 에 { memoId: item?.id ?? 0 } 요거 실어주기 */
+          }}
         />
         <CustomButton
           title="삭제"
