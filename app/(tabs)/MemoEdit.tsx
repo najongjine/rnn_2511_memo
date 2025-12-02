@@ -22,6 +22,7 @@ export default function MemoEdit() {
   const [content, setContent] = useState("");
 
   async function init() {
+    console.log(`# memoedit init memoid: `, memoId);
     if (memoId) {
       let data = await db.getMemoById(memoId);
       setTitle(data?.title ?? "");

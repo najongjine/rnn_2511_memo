@@ -29,12 +29,13 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="explore"
+          name="MemoEdit"
           options={{
             title: "Explore",
             tabBarIcon: ({ color }) => (
               <IconSymbol size={28} name="paperplane.fill" color={color} />
             ),
+            href: null,
           }}
         />
       </Tabs>

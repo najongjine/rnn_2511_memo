@@ -85,6 +85,8 @@ export default function MemoDetail() {
             /* router.replace 
             db.deleteMemoById
             */
+            db.deleteMemoById(memoId);
+            router.replace({ pathname: "/" });
           }}
         />
       </View>
