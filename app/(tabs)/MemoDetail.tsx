@@ -70,6 +70,10 @@ export default function MemoDetail() {
           onPress={() => {
             /* router.push 이용해서 MemoEdit 화면으로 이동
             parmas 에 { memoId: item?.id ?? 0 } 요거 실어주기 */
+            router.push({
+              pathname: "/MemoEdit",
+              params: { memoId: memoId },
+            });
           }}
         />
         <CustomButton
