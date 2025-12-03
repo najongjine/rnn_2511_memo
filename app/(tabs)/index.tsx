@@ -1,13 +1,13 @@
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import {
-  FlatList, // 다크모드 감지
+  FlatList,
   StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  useColorScheme, // 다크모드 감지
+  useColorScheme,
 } from "react-native";
 import CustomButton from "../component/CustomButton";
 import * as db from "../db/db";
@@ -16,10 +16,8 @@ import * as types from "../types/types";
 export default function HomeScreen() {
   const [memos, setMemos] = useState<types.Memo[]>([]);
 
-  // 1. 다크모드 감지
   const isDarkMode = useColorScheme() === "dark";
 
-  // 2. 테마 색상 정의
   const theme = {
     container: isDarkMode ? "#121212" : "#F5F7FA",
     text: isDarkMode ? "#FFFFFF" : "#333333",
@@ -31,10 +29,8 @@ export default function HomeScreen() {
   async function init() {
     await db.initDB();
     let memos = await db.getMemos();
-    // 최신순 정렬
     memos.sort((a, b) => (b.id || 0) - (a.id || 0));
     setMemos(memos);
-    console.log(`메모 로딩 완료`);
   }
 
   useFocusEffect(
@@ -44,21 +40,18 @@ export default function HomeScreen() {
   );
 
   return (
-    // SafeAreaView 제거 -> 일반 View 사용
     <View style={[styles.container, { backgroundColor: theme.container }]}>
-      {/* 상태바 글자 색상은 화면 배경색에 맞춰야 하므로 남겨둠 */}
       <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
 
-      {/* 헤더 영역 */}
       <View style={styles.header}>
         <Text style={[styles.headerTitle, { color: theme.headerTitle }]}>
           나의 메모장
         </Text>
       </View>
 
-      {/* 리스트 영역 */}
       <FlatList
         data={memos}
+        // 핵심 수정: 버튼에 가려지지 않게 하단 여백을 충분히 늘렸습니다 (100 -> 150)
         contentContainerStyle={styles.listContent}
         keyExtractor={(item) => item.id?.toString() || Math.random().toString()}
         renderItem={({ item }) => (
@@ -66,7 +59,7 @@ export default function HomeScreen() {
             style={[
               styles.card,
               { backgroundColor: theme.cardBg },
-              !isDarkMode && styles.shadow, // 라이트모드만 그림자
+              !isDarkMode && styles.shadow,
             ]}
             activeOpacity={0.7}
             onPress={() => {
@@ -99,7 +92,6 @@ export default function HomeScreen() {
         }
       />
 
-      {/* FAB 버튼 영역 */}
       <View style={styles.fabContainer}>
         <CustomButton
           title="+ 작성"
@@ -121,13 +113,11 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // 상위 레이아웃 안에서 꽉 차게
+    flex: 1,
   },
   header: {
     paddingHorizontal: 20,
     paddingVertical: 15,
-    // 상위 레이아웃 때문에 위쪽 패딩이 너무 넓어 보이면
-    // 여기 paddingVertical을 조금 줄이셔도 됩니다.
   },
   headerTitle: {
     fontSize: 28,
@@ -135,7 +125,8 @@ const styles = StyleSheet.create({
   },
   listContent: {
     padding: 20,
-    paddingBottom: 100,
+    // [수정됨] 여백을 150으로 늘려서 마지막 아이템이 버튼 위로 완전히 올라오게 함
+    paddingBottom: 150,
   },
   card: {
     flexDirection: "row",
@@ -173,5 +164,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 30,
     right: 20,
+    // (선택사항) 버튼 자체에 그림자를 줘서 리스트 위에 떠있는 느낌을 더 줄 수 있습니다.
+    // elevation: 5,
   },
 });
