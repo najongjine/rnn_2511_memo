@@ -50,6 +50,10 @@ export default function MemoEdit() {
       alert("제목을 입력해주세요.");
       return;
     }
+    if (!content.trim()) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
     await db.updateMemo(memoId, title, content);
     router.replace("/");
   }
