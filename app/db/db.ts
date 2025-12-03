@@ -105,10 +105,13 @@ export const updateMemo = async (
 
     // 옵션 설정: 24시간제(hour12: false), 두 자리 숫자 유지(2-digit)
     const kstTime = now.toLocaleTimeString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
-      hour12: false,
+      hour12: false, // 24시간제
     });
     if (id) {
       // db.runAsync는 UPDATE 구문에 적합하며, 변경된 행의 수를 반환합니다.
